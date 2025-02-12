@@ -7,6 +7,12 @@ const port = 3000;
 
 app.use(express.static(path.join(__dirname, "public")));
 
+// Gửi dữ liệu (POST): XMLHttpRequest, fetch, axios, super agent, jquery ajax, ...
+app.use(express.urlencoded({
+  extended: true
+})); // Gửi (POST) ở dạng Middleware
+app.use(express.json()); // Gửi (POST) ở dạng JavaScript
+
 // HTTP logger
 app.use(morgan("combined"));
 
@@ -25,7 +31,18 @@ app.get("/", (req, res) => {
 });
 
 app.get("/news", (req, res) => {
+  //console.log(req.query.q);
   res.render("news");
+});
+
+app.get("/search", (req, res) => {
+  // console.log(req.query.q);
+  res.render("search");
+});
+
+app.post("/search", (req, res) => {
+  // console.log(req.body);
+  res.send("");
 });
 
 app.listen(port, () => {
