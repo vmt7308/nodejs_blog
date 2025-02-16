@@ -25,6 +25,22 @@ app.use(express.json());
 
 app.use(methodOverride('_method'));
 
+
+// Middleware: validate user
+// http://localhost:3000/?ve=vevip
+app.use(bacBaoVe);
+
+// Middleware
+function bacBaoVe (req, res, next) {
+    if (['vethuong', 'vevip'].includes(req.query.ve)) {
+        req.face = 'Gach gach gach';
+        return next;    
+    }
+    res.status(403).json({
+        message: "Access denied"
+    })
+}
+
 // HTTP logger
 // app.use(morgan('combined'));
 
